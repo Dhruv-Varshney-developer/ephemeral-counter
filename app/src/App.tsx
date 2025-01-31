@@ -20,7 +20,7 @@ import {
 
 const COUNTER_PDA_SEED = "test-pda";
 const COUNTER_PROGRAM = new PublicKey(
-  "852a53jomx7dGmkpbFPGXNJymRxywo3WsH1vusNASJRr"
+  "zqXuMMnW2vZtczgstTAEKF7mnuDhvBM5qDhsoreD43s"
 );
 
 const App: React.FC = () => {
@@ -302,7 +302,7 @@ const App: React.FC = () => {
     }
 
     const transaction = (await counterProgramClient.current?.methods
-      .increment()
+      .multiply()
       .accounts({
         counter: counterPda,
       })
