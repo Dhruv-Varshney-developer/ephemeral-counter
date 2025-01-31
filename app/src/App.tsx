@@ -20,7 +20,7 @@ import {
 
 const COUNTER_PDA_SEED = "test-pda";
 const COUNTER_PROGRAM = new PublicKey(
-  "zqXuMMnW2vZtczgstTAEKF7mnuDhvBM5qDhsoreD43s"
+  "9AauSsvebvnBy1buaduvTNteXYzS2DUCdWeHH47fKS3B"
 );
 
 const App: React.FC = () => {
@@ -29,8 +29,8 @@ const App: React.FC = () => {
   const provider = useRef<Provider>(new SimpleProvider(connection));
   const { publicKey, sendTransaction } = useWallet();
   const tempKeypair = useRef<Keypair | null>(null);
-  const [counter, setCounter] = useState<number>(0);
-  const [ephemeralCounter, setEphemeralCounter] = useState<number>(0);
+  const [counter, setCounter] = useState<number>(1);
+  const [ephemeralCounter, setEphemeralCounter] = useState<number>(1);
   const [isDelegated, setIsDelegated] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [transactionError, setTransactionError] = useState<string | null>(null);
@@ -289,6 +289,10 @@ const App: React.FC = () => {
    */
   const increaseCounterTx = useCallback(async () => {
     if (!tempKeypair.current) return;
+    if (!counterProgramClient.current) {
+        console.error('Counter program client not initialized');
+        return;
+      }
     if (!isDelegated) {
       const accountTmpWallet = await connection.getAccountInfo(
         tempKeypair.current.publicKey
@@ -301,12 +305,12 @@ const App: React.FC = () => {
       }
     }
 
-    const transaction = (await counterProgramClient.current?.methods
+    const transaction = (await counterProgramClient.current.methods
       .multiply()
       .accounts({
         counter: counterPda,
       })
-      .transaction()) as Transaction;
+      .transaction());
 
     // Add instruction to print to the noop program and and make the transaction unique
     const noopInstruction = new TransactionInstruction({
