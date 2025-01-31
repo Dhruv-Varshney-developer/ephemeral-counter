@@ -4,7 +4,7 @@ import Square from "./components/Square";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import Alert from "./components/Alert";
-import { BN, Program, Provider } from "@coral-xyz/anchor";
+import {  Program, Provider } from "@coral-xyz/anchor";
 import { SimpleProvider } from "./components/Wallet";
 import {
   AccountInfo,
@@ -128,7 +128,7 @@ const App: React.FC = () => {
       if (accountInfo) {
         // @ts-ignore
         const counter =
-          await counterProgramClient.current.account.counter.fetch(counterPda);
+          await (counterProgramClient.current.account as any).counter.fetch(counterPda);
         setCounter(Number(counter.count.valueOf()));
         setIsDelegated(!accountInfo.owner.equals(COUNTER_PROGRAM));
         await subscribeToCounter();
@@ -192,7 +192,7 @@ const App: React.FC = () => {
       if (accountInfo) {
         // @ts-ignore
         const counter =
-          await counterProgramClient.current.account.counter.fetch(counterPda);
+          await (counterProgramClient.current?.account as any).counter.fetch(counterPda);
         setEphemeralCounter(Number(counter.count.valueOf()));
         await subscribeToCounter();
       }
