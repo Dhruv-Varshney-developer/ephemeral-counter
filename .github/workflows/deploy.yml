@@ -20,11 +20,11 @@ jobs:
         working-directory: app
 
     - name: Install dependencies
-      run: npm install --legacy-peer-deps
+      run: yarn install
       working-directory: app
 
     - name: Build the project
-      run: npm run build
+      run: yarn build
       working-directory: app
 
     - name: Deploy to GitHub Pages
