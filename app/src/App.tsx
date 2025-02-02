@@ -20,7 +20,7 @@ import {
 
 const COUNTER_PDA_SEED = "test-pda";
 const COUNTER_PROGRAM = new PublicKey(
-  "9AauSsvebvnBy1buaduvTNteXYzS2DUCdWeHH47fKS3B"
+  "6W6pzBTRn49rn2adaZ9QGcnB627iJtWM2huvXc8RcThB"
 );
 
 const App: React.FC = () => {
